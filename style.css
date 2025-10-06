@@ -1,0 +1,495 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@font-face {
+  font-family: stone-crush;
+  src: url(stones-crush.regular.ttf);
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background-image: url(images/design-space-paper-textured-background.jpg);
+  background-repeat: repeat;
+  background-size:auto;
+  font-family: "Poppins", sans-serif;
+}
+/* ==== test text
+h1{
+  text-shadow: 0 0 0 #000;
+  animation: effect 2s infinite;
+}
+
+@keyframes effect {
+  0% {
+    text-shadow: 5px 0 #000;
+  }
+  50% {
+    text-shadow: -5px 0 #000;
+  }
+  100% {
+    text-shadow: 5px 0 #000;
+  }
+  }
+
+/* ===== NAVBAR ===== */
+header {
+  width: 100%;
+  background: #333;
+  padding: 15px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  font-family: "stone-crush", sans-serif;
+  font-size: 1.0rem;         
+  letter-spacing: 1px;        
+  font-weight: 600;          
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.logo a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: bold;
+}
+#menu-toggler {
+  display: none;
+}
+#hamburger-btn {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 1100;
+  display: block !important;
+}
+.right-icons {
+  display: flex;
+  gap: 20px;
+  margin-left: auto;
+  justify-content: flex-end;
+}
+.right-icons a {
+  color: #fff;
+  font-size: 18px;
+}
+.all-links {
+  position: fixed;
+  top: 60px;
+  left: -100%;
+  width: 220px;
+  height: 100vh;
+  background: #222;
+  flex-direction: column;
+  padding-top: 30px;
+  list-style: none;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+.all-links li {
+  margin: 15px 0;
+  text-align: center;
+}
+.all-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+.all-links li a:hover {
+  color: #ddd;
+}
+#menu-toggler:checked ~ .all-links {
+  left: 0;
+}
+
+/* ===== VIDEO HERO SECTION ===== */
+.homepage {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+.homepage .bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+.homepage .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: -1;
+}
+.homepage .content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+}
+.homepage .content h1 {
+  font-size: 60px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+.homepage .content p {
+  font-size: 20px;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+.homepage .content a {
+  color: #000;
+  background: #fff;
+  padding: 12px 36px;
+  font-size: 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+.homepage .content a:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+/* ===== SECTIONS ===== */
+section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 80px 0 0;
+
+}
+section h2 {
+  font-size: 2rem;
+}
+section > p {
+  text-align: center;
+}
+section .cards {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin-top: 50px;
+  padding: 0 10px;
+  justify-content: space-between;
+}
+section.about {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+.about .company-info {
+  margin-top: 30px;
+}
+.about h3 {
+  margin: 30px 0 10px;
+}
+.about .team {
+  text-align: left;
+  width: 100%;
+}
+.about .team ul {
+  padding-left: 20px;
+}
+section .cards .card {
+  background: #fff;
+  padding: 40px 15px;
+  list-style: none;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.04);
+  margin-bottom: 40px;
+  width: calc(100% / 3 - 30px);
+  text-align: center;
+}
+.portfolio .cards .card {
+  padding: 0 0 20px;
+}
+.services .card img {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 20px;
+  border-radius: 0;
+  object-fit: cover;
+}
+.portfolio .card img {
+  width: 100%;
+  padding-bottom: 10px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 7px;
+}
+.cards .card p {
+  padding: 0 15px;
+  margin-top: 5px;
+}
+
+/* ===== CONTACT ===== */
+.contact .row {
+  margin: 60px 0 90px;
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.contact .row .col {
+  padding: 0 10px;
+  width: calc(100% / 2 - 50px);
+}
+.contact .col p {
+  margin-bottom: 10px;
+}
+.contact .col p i {
+  color: #7a7a7a;
+  margin-right: 10px;
+}
+.contact form input {
+  height: 45px;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 100%;
+  font-size: 16px;
+  outline: none;
+  border: 1px solid #bfbfbf;
+}
+.contact form textarea {
+  padding: 10px;
+  width: 100%;
+  font-size: 16px;
+  height: 150px;
+  outline: none;
+  resize: vertical;
+  border: 1px solid #bfbfbf;
+}
+.contact form button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 17px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  background: #333;
+  transition: 0.2s ease;
+}
+.contact form button:hover {
+  background: #525252;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #000;
+  padding: 20px 0;
+}
+footer div {
+  padding: 0 10px;
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+footer span {
+  color: #fff;
+}
+footer a {
+  padding: 0;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* ===== RESPONSIVE ===== */
+@media screen and (max-width: 860px) {
+  .navbar .all-links {
+    position: fixed;
+    left: -100%;
+    width: 300px;
+    display: block;
+    height: 100vh;
+    top: 0px;
+    background: #333;
+    transition: left 0.3s ease;
+    animation: slideDown 0.3s ease;
+  }
+  .navbar #menu-toggler:checked~.all-links {
+    left: 0;
+  }
+  .navbar #hamburger-btn {
+    display: block;
+  }
+  .homepage .content h1 {
+    font-size: 40px;
+  }
+  .homepage .content p {
+    font-size: 17px;
+  }
+  .homepage .content a {
+    font-size: 17px;
+    padding: 9px 20px;
+  }
+  section .cards .card {
+    width: calc(100% / 2 - 15px);
+  }
+  .contact .row {
+    flex-direction: column;
+  }
+  .contact .row .col {
+    width: 100%;
+  }
+  .contact .row .col:last-child {
+    margin-top: 40px;
+  }
+}
+@media screen and (max-width: 560px) {
+  section .cards .card {
+    width: 100%;
+  }
+  @keyframes slideDown {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+}
+/* ==== CENTERED IMAGE SLIDER (not fullscreen) ==== */
+.slider-container {
+  position: relative;
+  width: 80%;
+  max-width: 900px;
+  margin: 50px auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.slide img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+.caption {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  text-shadow: 0px 2px 10px rgba(0,0,0,0.8);
+}
+
+/* Nút chuyển ảnh */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  color: #fff;
+  font-size: 26px;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+  z-index: 5;
+}
+.prev:hover, .next:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+.prev { left: 15px; }
+.next { right: 15px; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .slider-container {
+    width: 95%;
+  }
+  .slide img {
+    height: 300px;
+  }
+}
+/* ==== FULLSCREEN STATIC IMAGE BANNER ==== */
+.mood-banner {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* full màn hình */
+  overflow: hidden;
+  margin-top: 40px;
+}
+
+.mood-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* giúp hình căn vừa khung mà không méo */
+  z-index: 1;
+}
+
+.mood-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 15, 0.25); /* mờ nhẹ để hòa với theme */
+  z-index: 2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mood-banner {
+    height: 70vh;
+  }
+}
+
+
+
+
+
