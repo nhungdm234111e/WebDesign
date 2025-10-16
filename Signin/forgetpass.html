@@ -1,0 +1,309 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reset Password</title>
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="sign_style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+        <style>
+            body {
+                background-image: url('../images/background11.png');
+                background-position: center 40%;
+                background-size: auto;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                padding: 70px;
+            }
+  
+            .reset-container {
+                background: rgba(255, 255, 255, 0.6);
+                border-radius: 12px;
+                padding: 40px;
+                width: 100%;
+                max-width: 450px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 32px;
+                font-weight: 700;
+                margin-bottom: 7px;
+                color: #000;
+                letter-spacing: 0.5px;
+            }
+
+            .subtitle {
+                font-size: 14px;
+                color: #666;
+                margin-bottom: 25px;
+                line-height: 1.5;
+            }
+
+            .reset-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .reset-table td {
+                padding: 0;
+            }
+
+            .reset-table tr:first-child td {
+                padding-bottom: 10px;
+            }
+
+            .reset-table tr:nth-child(2) td {
+                padding-top: 10px;
+            }
+
+            /* --- Input có icon cố định --- */
+            .input-group {
+                position: relative;
+                width: 100%;
+            }
+
+            .input-group input {
+                width: 100%;
+                padding: 14px 40px 14px 14px;
+                border: 1px solid #e0e0e0;
+                border-radius: 5px;
+                font-size: 14px;
+                background-color: #f9f9f9;
+                transition: border-color 0.3s ease, background-color 0.3s ease;
+                box-sizing: border-box;
+            }
+
+            .input-group input:focus {
+                outline: none;
+                background-color: #fff;
+                border-color: #000;
+                box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+            }
+
+            .input-group i {
+                position: absolute;
+                right: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #777;
+                font-size: 16px;
+                pointer-events: none;
+            }
+
+            .input-group i.error-icon {
+                color: #e74c3c;
+            }
+
+            input::placeholder {
+                color: #999;
+            }
+
+            input.error {
+                border-color: #e74c3c;
+                background-color: #fadbd8;
+                color: #e74c3c;
+            }
+
+            input.error::placeholder {
+                color: #e74c3c;
+                opacity: 1;
+            }
+
+            .btn-submit {
+                width: 100%;
+                background-color: #000;
+                color: #fff;
+                border-radius: 5px;
+                letter-spacing: 0.5px;
+                padding: 14px;
+                font-size: 15px;
+                font-weight: 600;
+                border: 1px solid #000;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            .btn-submit:hover {
+                background-color: #fff;
+                color: #000;
+            }
+
+            .btn-cancel {
+                width: 100%;
+                background-color: transparent;
+                color: #000;
+                border: none;
+                padding: 12px;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+                margin-top: 4px;
+                transition: 0.3s;
+                text-decoration: underline;
+            }
+
+            .btn-cancel:hover {
+                color: #666;
+            }
+
+            .success-message {
+                background-color: #d4edda;
+                border: 1px solid #c3e6cb;
+                color: #155724;
+                padding: 12px;
+                border-radius: 5px;
+                margin-bottom: 20px;
+                display: none;
+                font-size: 14px;
+            }
+
+            @media (max-width: 768px) {
+                .reset-container {
+                    padding: 30px 25px;
+                }
+
+                h1 {
+                    font-size: 26px;
+                }
+
+                .subtitle {
+                    font-size: 13px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <input type="checkbox" id="menu-toggler">
+                <label for="menu-toggler" id="hamburger-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18V11H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </label>
+
+                <h2 class="logo"><a href="#">AVANT ATELIER</a></h2>
+
+                <ul class="all-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="Tops.html">TOP</a></li>
+                    <li><a href="Bottoms.html">BOTTOM</a></li>
+                    <li><a href="#portfolio">Accessories</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Help</a></li>
+                </ul>
+
+                <div class="right-icons">
+                    <a href="#"><i class="fas fa-user"></i></a>
+                    <a href="#"><i class="fas fa-search"></i></a>
+                    <a href="shopping_cart.html"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+            </nav>
+        </header>
+
+        <div class="reset-container">
+            <div class="success-message" id="successMessage">
+                We've sent you an email with instructions to reset your password. Please check your inbox.
+            </div>
+
+            <h1>Reset your password</h1>
+            <p class="subtitle">We will send you an email to reset your password!</p>
+
+            <form id="resetForm">
+                <table class="reset-table">
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input type="email" id="email" name="email" placeholder="Enter your email">
+                                <i class="fas fa-envelope" id="emailIcon"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit" class="btn-submit">Send</button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" class="btn-cancel" onclick="window.location.href='Signin.html'">Cancel</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <script>
+            var form = document.getElementById('resetForm');
+            var email = document.getElementById('email');
+            var emailIcon = document.getElementById('emailIcon');
+            var successMessage = document.getElementById('successMessage');
+            var heading = document.querySelector('h1');
+            var subtitle = document.querySelector('.subtitle');
+
+            var originalPlaceholder = 'Enter your email';
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                clearErrors();
+
+                var isValid = true;
+
+                if (email.value.trim() === '') {
+                    showError('email', 'Email is required');
+                    isValid = false;
+                } else if (!isValidEmail(email.value)) {
+                    showError('email', 'Invalid email format');
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    form.style.display = 'none';
+                    heading.style.display = 'none';
+                    subtitle.style.display = 'none';
+                    successMessage.style.display = 'block';
+
+                    console.log('Password reset email sent to:', email.value);
+
+                    setTimeout(function() {
+                        form.style.display = 'block';
+                        heading.style.display = 'block';
+                        subtitle.style.display = 'block';
+                        successMessage.style.display = 'none';
+                        form.reset();
+                        clearErrors();
+                    }, 60000);
+                }
+            });
+
+            function showError(id, msg) {
+                var input = document.getElementById(id);
+                var icon = document.getElementById(id + 'Icon');
+                
+                input.classList.add('error');
+                input.placeholder = msg;
+                icon.classList.add('error-icon');
+            }
+
+            function clearErrors() {
+                email.classList.remove('error');
+                email.placeholder = originalPlaceholder;
+                emailIcon.classList.remove('error-icon');
+            }
+
+            function isValidEmail(emailStr) {
+                var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(emailStr);
+            }
+
+            email.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    this.classList.remove('error');
+                    this.placeholder = originalPlaceholder;
+                    emailIcon.classList.remove('error-icon');
+                }
+            });
+        </script>
+    </body>
+</html>

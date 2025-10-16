@@ -1,0 +1,282 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign in</title>
+        <link rel="stylesheet" href="sign_style.css">
+        <link rel="stylesheet" href="../style.css">
+        <!-- Fontawesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <style>
+            body {
+                background-image: url('../images/background11.png');
+                background-position: center 40%;
+                background-size: auto;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                padding: 70px;
+            }
+            .login-container {
+                background: rgba(255, 255, 255, 0.6);
+                border-radius: 12px;
+                padding: 36px;
+                width: 100%;
+                max-width: 390px;
+                margin-right: 10px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            }
+
+            h1 {
+                font-size: 38px;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 25px;
+                margin-top: -10px;
+                letter-spacing: 0.5px;
+                color: #000;
+            }
+
+            .input-group {
+                position: relative;
+                margin-bottom: 20px;
+            }
+
+            .options {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                font-size: 13px;
+                color: #555;
+                margin-bottom: 20px;
+                white-space: nowrap;
+            }
+
+            .options label {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                cursor: pointer;
+            }
+
+            .options a {
+                color: #555;
+                text-decoration: underline;
+            }
+
+            .options a:active {
+                font-weight: 700;
+            }
+
+            .options a:hover {
+                font-weight: 700;
+                color:#000
+            }
+
+            .btn-login {
+                width: 100%;
+                background-color: #000;
+                color: #fff;
+                border: none;
+                border-radius: 6px;
+                padding: 12px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            .btn-login:hover {
+                background-color: white;
+                color: #000;
+                border: 1px solid #000;
+            }
+
+            .signup-link {
+                text-align: center;
+                margin-top: 15px;
+                font-size: 13px;
+                color: #555;
+            }
+
+            .signup-link a {
+                color: #000;
+                text-decoration: underline;
+                font-weight: 600;
+            }
+
+            @media (max-width: 768px) {
+                body {
+                    justify-content: center;
+                    padding: 30px;
+                }
+                .login-container {
+                    margin: 0;
+                    max-width: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <input type="checkbox" id="menu-toggler">
+                <label for="menu-toggler" id="hamburger-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18V11H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </label>
+
+                <h2 class="logo"><a href="#">AVANT ATELIER</a></h2>
+
+                <ul class="all-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="Tops.html">TOP</a></li>
+                    <li><a href="Bottoms.html">BOTTOM</a></li>
+                    <li><a href="#portfolio">Accessories</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Help</a></li>
+                </ul>
+
+                <div class="right-icons">
+                    <a href="#"><i class="fas fa-user"></i></a>
+                    <a href="#"><i class="fas fa-search"></i></a>
+                    <a href="shopping cart.html"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+            </nav>
+        </header>
+        <div class="login-container">
+            <h1>Sign in</h1>
+            <form id="loginForm">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input type="email" id="email" name="email" placeholder="Email">
+                                <i class="fas fa-user" id="emailIcon"></i>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input type="password" id="password" name="password" placeholder="Password">
+                                <i class="fas fa-lock" id="passwordIcon"></i>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="options">
+                                <label><input type="checkbox" id="remember"> remember me</label>
+                                <a href="forgetpass.html">forget password</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <button type="submit" class="btn-login">Sign in</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+
+            <div class="signup-link">
+                Don't have an account? <a href="Signup.html">Sign up</a>
+            </div>
+        </div>
+  
+        <script>
+            var form = document.getElementById('loginForm');
+            var email = document.getElementById('email');
+            var password = document.getElementById('password');
+            var emailIcon = document.getElementById('emailIcon');
+            var passwordIcon = document.getElementById('passwordIcon');
+
+            // Lưu placeholder gốc
+            var originalPlaceholders = {
+                email: 'Email',
+                password: 'Password'
+            };
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                clearErrors();
+                var valid = true;
+
+                if (email.value.trim() === '') {
+                    showError('email', 'Email is required');
+                    valid = false;
+                } else if (!isValidEmail(email.value)) {
+                    showError('email', 'Invalid email format');
+                    valid = false;
+                }
+
+                if (password.value.trim() === '') {
+                    showError('password', 'Password is required');
+                    valid = false;
+                }
+
+                if (valid) {
+                    var remember = document.getElementById('remember').checked;
+                    var loginData = {
+                        email: email.value,
+                        password: password.value,
+                        remember: remember,
+                        loginTime: new Date().toLocaleString()
+                    };
+                    console.log(loginData);
+                    alert(`Welcome back!\nLogged in at: ${loginData.loginTime}`);
+                    form.reset();
+                }
+            });
+
+            function showError(id, msg) {
+                var input = document.getElementById(id);
+                var icon = document.getElementById(id + 'Icon');
+                
+                input.classList.add('error');
+                input.placeholder = msg;
+                icon.classList.add('error-icon');
+            }
+
+            function clearErrors() {
+                // Clear email error
+                email.classList.remove('error');
+                email.placeholder = originalPlaceholders.email;
+                emailIcon.classList.remove('error-icon');
+
+                // Clear password error
+                password.classList.remove('error');
+                password.placeholder = originalPlaceholders.password;
+                passwordIcon.classList.remove('error-icon');
+            }
+
+            // Xóa lỗi khi user bắt đầu nhập
+            email.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    this.classList.remove('error');
+                    this.placeholder = originalPlaceholders.email;
+                    emailIcon.classList.remove('error-icon');
+                }
+            });
+
+            password.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    this.classList.remove('error');
+                    this.placeholder = originalPlaceholders.password;
+                    passwordIcon.classList.remove('error-icon');
+                }
+            });
+
+            function isValidEmail(email) {
+                var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(email);
+            }
+        </script>
+    </body>
+</html>

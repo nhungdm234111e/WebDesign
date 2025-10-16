@@ -1,0 +1,298 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign up</title>
+        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="sign_style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <style>
+            body { 
+                background-image: url('../images/background11.png');
+                background-position: center 40%;
+                background-size: auto;
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                padding: 70px;
+            }
+            .signup-container {
+                margin-top: 60px;
+                background: rgba(255, 255, 255, 0.6);
+                border-radius: 12px;
+                padding: 36px;
+                width: 100%;
+                max-width: 400px;
+                max-height: 520px;
+                margin-right: 10px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            }
+
+            h1 {
+                font-size: 42px;
+                font-weight: 700;
+                margin-top: -10px;
+                margin-bottom: 25px;
+                color: #000;
+                letter-spacing: 0.5px;
+                text-align: center;
+            }
+
+            table td {
+                padding-bottom: 20px;
+            }
+
+            input {
+                margin-bottom: 5px;
+                border-radius: 5px;
+            }
+
+            .input-group i {
+                display: none;
+            }
+
+
+            input::placeholder {
+                color: #999;
+            }
+
+            .btn-submit {
+                width: 100%;
+                background-color: #000;
+                color: #fff;
+                border-radius: 5px;
+                margin-top: 3px;
+                letter-spacing: 0.5px;
+                padding: 12px 14px;
+                font-size: 14px;
+                font-weight: 600;
+                border: 1px solid #000;
+                cursor: pointer;
+                transition: 0.3s;
+                letter-spacing: 0.5px;
+                min-width: 150px;
+            }
+
+            .btn-submit:hover {
+                background-color: white;
+                color: #000;
+            }
+
+            .btn-submit:active {
+                transform: translateY(0);
+            }
+
+            .signin-link {
+                text-align: center;
+                margin-top: 0px;
+                font-size: 13px;
+                color: #666;
+            }
+
+            .signin-link a {
+                color: #000;
+                text-decoration: none;
+                font-weight: 600;
+                transition: 0.3s;
+                text-decoration: underline;
+            }
+
+            .signin-link a:hover {
+                color: #333;
+                text-decoration: underline;
+            }
+
+            @media (max-width: 768px) {
+                body {
+                    justify-content: center;
+                }
+
+                .signup-container {
+                    max-width: 100%;
+                }
+
+                h1 {
+                    font-size: 28px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <input type="checkbox" id="menu-toggler">
+                <label for="menu-toggler" id="hamburger-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18V11H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </label>
+
+                <h2 class="logo"><a href="#">AVANT ATELIER</a></h2>
+
+                <ul class="all-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="Tops.html">TOP</a></li>
+                    <li><a href="Bottoms.html">BOTTOM</a></li>
+                    <li><a href="#portfolio">Accessories</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Help</a></li>
+                </ul>
+
+                <div class="right-icons">
+                    <a href="#"><i class="fas fa-user"></i></a>
+                    <a href="#"><i class="fas fa-search"></i></a>
+                    <a href="shopping cart.html"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+            </nav>
+        </header>
+
+        <div class="signup-container">
+            <h1>Sign up</h1>
+            <form id="signupForm">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" id="firstName" name="firstName" placeholder="First Name">
+                                <i class="fas fa-user" id="firstNameIcon"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input type="text" id="lastName" name="lastName" placeholder="Last Name">
+                                <i class="fas fa-user" id="lastNameIcon"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input type="email" id="email" name="email" placeholder="Email">
+                                <i class="fas fa-envelope" id="emailIcon"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <input type="password" id="password" name="password" placeholder="Password">
+                                <i class="fas fa-lock" id="passwordIcon"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit" class="btn-submit">Create an account</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div class="signin-link">
+                Already have an account? <a href="Signin.html">Sign in</a>
+            </div>
+        </div>
+
+        <script>
+            var form = document.getElementById('signupForm');
+            var firstName = document.getElementById('firstName');
+            var lastName = document.getElementById('lastName');
+            var email = document.getElementById('email');
+            var password = document.getElementById('password');
+
+            var firstNameIcon = document.getElementById('firstNameIcon');
+            var lastNameIcon = document.getElementById('lastNameIcon');
+            var emailIcon = document.getElementById('emailIcon');
+            var passwordIcon = document.getElementById('passwordIcon');
+
+            // Lưu placeholder gốc
+            var originalPlaceholders = {
+                firstName: 'First Name',
+                lastName: 'Last Name',
+                email: 'Email',
+                password: 'Password'
+            };
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                clearErrors();
+
+                var isValid = true;
+
+                if (firstName.value.trim() === '') {
+                    showError('firstName', 'First name is required');
+                    isValid = false;
+                } 
+                if (lastName.value.trim() === '') {
+                    showError('lastName', 'Last name is required');
+                    isValid = false;
+                } 
+                if (email.value.trim() === '') {
+                    showError('email', 'Email is required');
+                    isValid = false;
+                } else if (!isValidEmail(email.value)) {
+                    showError('email', 'Invalid email format');
+                    isValid = false;
+                }
+                if (password.value === '') {
+                    showError('password', 'Password is required');
+                    isValid = false;
+                } else if (password.value.length < 6) {
+                    showError('password', 'Password must be at least 6 characters');
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    console.log({
+                        firstName: firstName.value,
+                        lastName: lastName.value,
+                        email: email.value,
+                        password: password.value,
+                        signupTime: new Date().toLocaleString()
+                    });
+                    alert('Account created successfully!');
+                    form.reset();
+                }
+            });
+
+            function showError(id, msg) {
+                var input = document.getElementById(id);
+                var icon = document.getElementById(id + 'Icon');
+                
+                input.classList.add('error');
+                input.placeholder = msg;
+                icon.classList.add('error-icon');
+            }
+
+            function clearErrors() {
+                // Clear all errors
+                ['firstName', 'lastName', 'email', 'password'].forEach(function(id) {
+                    var input = document.getElementById(id);
+                    var icon = document.getElementById(id + 'Icon');
+                    
+                    input.classList.remove('error');
+                    input.placeholder = originalPlaceholders[id];
+                    icon.classList.remove('error-icon');
+                });
+            }
+
+            // Xóa lỗi khi user bắt đầu nhập
+            [firstName, lastName, email, password].forEach(function(input) {
+                input.addEventListener('input', function() {
+                    if (this.classList.contains('error')) {
+                        this.classList.remove('error');
+                        this.placeholder = originalPlaceholders[this.id];
+                        document.getElementById(this.id + 'Icon').classList.remove('error-icon');
+                    }
+                });
+            });
+
+            function isValidEmail(email) {
+                var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(email);
+            }
+        </script>
+    </body>
+</html>
