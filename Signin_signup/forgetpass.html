@@ -26,6 +26,7 @@
                 max-width: 450px;
                 box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
                 text-align: center;
+                animation: slideInRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
             }
 
             h1 {
@@ -34,6 +35,7 @@
                 margin-bottom: 7px;
                 color: #000;
                 letter-spacing: 0.5px;
+                animation: slideInUp 0.6s ease-out 0.1s backwards;
             }
 
             .subtitle {
@@ -60,7 +62,6 @@
                 padding-top: 10px;
             }
 
-            /* --- Input có icon cố định --- */
             .input-group {
                 position: relative;
                 width: 100%;
@@ -133,21 +134,21 @@
             }
 
             .btn-cancel {
-                width: 100%;
-                background-color: transparent;
-                color: #000;
+                display: inline-block;
+                background: none;
                 border: none;
-                padding: 12px;
+                color: #666;
                 font-size: 14px;
-                font-weight: 500;
+                margin-top: 10px;
                 cursor: pointer;
-                margin-top: 4px;
-                transition: 0.3s;
-                text-decoration: underline;
+                transition: color 0.3s ease;
+                font-weight: 300;
             }
 
             .btn-cancel:hover {
-                color: #666;
+                color: #000;
+                font-weight: 500;
+                text-decoration: underline;
             }
 
             .success-message {
@@ -172,6 +173,40 @@
 
                 .subtitle {
                     font-size: 13px;
+                }
+            }
+
+            /* Animations */
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(100px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            @keyframes slideInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fadeOut {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(100px);
                 }
             }
         </style>
@@ -228,7 +263,7 @@
                         <td><button type="submit" class="btn-submit">Send</button></td>
                     </tr>
                     <tr>
-                        <td><button type="button" class="btn-cancel" onclick="window.location.href='Signin.html'">Cancel</button></td>
+                        <td style="text-align: center;"><a href="Signup.html" class="btn-cancel">Cancel</a></td>
                     </tr>
                 </table>
             </form>

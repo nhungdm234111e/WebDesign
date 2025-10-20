@@ -16,6 +16,7 @@
                 align-items: center;
                 padding: 70px;
             }
+
             .signup-container {
                 margin-top: 60px;
                 background: rgba(255, 255, 255, 0.6);
@@ -26,7 +27,9 @@
                 max-height: 520px;
                 margin-right: 10px;
                 box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                animation: slideInRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
             }
+
 
             h1 {
                 font-size: 42px;
@@ -35,7 +38,7 @@
                 margin-bottom: 25px;
                 color: #000;
                 letter-spacing: 0.5px;
-                text-align: center;
+                text-align: center;                
             }
 
             table td {
@@ -95,11 +98,15 @@
                 font-weight: 600;
                 transition: 0.3s;
                 text-decoration: underline;
+                animation: slideInUp 0.6s ease-out backwards;
+
             }
 
             .signin-link a:hover {
                 color: #333;
                 text-decoration: underline;
+                animation: slideInUp 0.6s ease-out backwards;
+
             }
 
             @media (max-width: 768px) {
@@ -113,6 +120,29 @@
 
                 h1 {
                     font-size: 28px;
+                }
+            }
+
+            /* Animations */
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(100px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            @keyframes slideInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
                 }
             }
         </style>
@@ -191,7 +221,7 @@
                 </table>
             </form>
             <div class="signin-link">
-                Already have an account? <a href="Signin.html">Sign in</a>
+                Already have an account? <a href="Signin.html" class="nav-link">Sign in</a>
             </div>
         </div>
 
@@ -293,6 +323,23 @@
                 var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return regex.test(email);
             }
+
+            // Xử lý chuyển trang với animation
+            document.querySelectorAll('.nav-link').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var href = this.getAttribute('href');
+                    
+                    // Tìm container (login-container hoặc signup-container)
+                    var container = document.querySelector('.login-container') || document.querySelector('.signup-container');
+                    container.style.animation = 'fadeOut 0.5s ease-in forwards';
+                    document.querySelector('header').style.animation = 'fadeOut 0.5s ease-in forwards';
+                    
+                    setTimeout(function() {
+                        window.location.href = href;
+                    }, 500);
+                });
+            });
         </script>
     </body>
 </html>
