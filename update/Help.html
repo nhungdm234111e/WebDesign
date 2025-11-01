@@ -1,0 +1,638 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common Q&A</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fontawesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: auto;
+            background-image: url("images/background4.png");
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .left-section h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: -30px;
+            color: #000;
+            letter-spacing: 1px;
+            margin-left: -50px;
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            vertical-align: top;
+            padding: 40px;
+        }
+
+        .left-section {
+            position: relative;
+            width: 350px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 70px;
+            margin-bottom: 20px;
+            color: #000;
+            letter-spacing: 1px;
+        }
+
+        .cassette-container {
+            position: relative;
+            width: 350px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        .cassette {
+            margin-top: 30px;
+            position: absolute;
+            width: 297px;
+            height: 200px;
+            cursor: pointer;
+            transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.6s ease;
+            filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.3));
+            transform: translateY(100px);
+            opacity: 0;
+        }
+
+        /* hiệu ứng trồi lên khi load */
+        .cassette.loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Khi bấm vào trượt ra ngang */
+        .cassette.active {
+            transform: translate(125px, 0);
+        }
+
+        .cassette img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .cassette:nth-child(1) { top: 0; z-index: 1; }
+        .cassette:nth-child(2) { top: 60px; z-index: 2; }
+        .cassette:nth-child(3) { top: 120px; z-index: 3; }
+        .cassette:nth-child(4) { top: 180px; z-index: 4; }
+        .cassette:nth-child(5) { top: 240px; z-index: 5; }
+        .cassette:nth-child(6) { top: 300px; z-index: 6; }
+
+        .cassette.active {
+            transform: translateX(125px);
+        }
+
+        .right-section {
+            position: relative;
+            padding-top: 40px;
+        }
+
+        .tv-container {
+            width: 750px;
+            height: 585px;
+            position: relative;
+            filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.4));
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Tooltip di chuyển theo con trỏ chuột */
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            font-size: 13px;
+            padding: 4px 8px;
+            border-radius: 5px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.1s ease;
+            z-index: 9999;
+        }
+
+        .tv-container img {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        .tv-screen {
+            position: absolute;
+            top: 8%;
+            left: 7%;
+            width: 70%;
+            height: 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 70px;
+            overflow: hidden;
+        }
+
+        .tv-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.02) 2px,
+                rgba(0,0,0,0.02) 4px
+            );
+            pointer-events: none;
+        }
+
+        @keyframes slideUpFade {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .tv-content {
+            text-align: center;
+            color: #333;
+            font-size: 18px;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+            max-width: 100%;
+            animation: slideUpFade 0.6s ease;
+        }
+
+        @media (max-width: 1200px) {
+            body {
+                padding: 15px;
+                padding-top: 70px;
+            }
+
+            .left-section h1 {
+                font-size: 24px;
+                margin-left: -30px;
+            }
+
+            .cassette-container {
+                width: 280px;
+                height: 360px;
+            }
+
+            .cassette {
+                width: 250px;
+                height: 160px;
+            }
+
+            .cassette:nth-child(1) { top: 0; }
+            .cassette:nth-child(2) { top: 50px; }
+            .cassette:nth-child(3) { top: 100px; }
+            .cassette:nth-child(4) { top: 150px; }
+            .cassette:nth-child(5) { top: 200px; }
+            .cassette:nth-child(6) { top: 250px; }
+
+            .cassette.active {
+                transform: translateX(100px);
+            }
+
+            .tv-container {
+                width: 600px;
+                height: auto;
+                aspect-ratio: 750/585;
+            }
+
+            .tv-screen {
+                padding: 50px;
+            }
+
+            .tv-content {
+                font-size: 16px;
+            }
+
+            td {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+                padding-top: 70px;
+            }
+
+            .main-wrapper {
+                display: block;
+            }
+
+            table, tbody, tr, td {
+                display: block;
+                width: 100%;
+            }
+
+            .left-section h1 {
+                font-size: 24px;
+            }
+
+            .cassette-container {
+                max-width: 280px;
+                height: 350px;
+            }
+
+            .cassette {
+                width: 250px;
+                height: 160px;
+            }
+
+            .cassette:nth-child(1) { top: 0; }
+            .cassette:nth-child(2) { top: 50px; }
+            .cassette:nth-child(3) { top: 100px; }
+            .cassette:nth-child(4) { top: 150px; }
+            .cassette:nth-child(5) { top: 200px; }
+            .cassette:nth-child(6) { top: 250px; }
+
+            .tv-container {
+                max-width: 450px;
+            }
+
+            .tv-screen {
+                padding: 30px;
+            }
+
+            .tv-content {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+                padding-top: 60px;
+            }
+
+            .left-section h1 {
+                font-size: 22px;
+                margin-bottom: 5px;
+            }
+
+            td {
+                padding: 15px 5px;
+            }
+
+            .cassette-container {
+                max-width: 250px;
+                height: 320px;
+            }
+
+            .cassette {
+                width: 220px;
+                height: 140px;
+            }
+
+            .cassette:nth-child(1) { top: 0; }
+            .cassette:nth-child(2) { top: 45px; }
+            .cassette:nth-child(3) { top: 90px; }
+            .cassette:nth-child(4) { top: 135px; }
+            .cassette:nth-child(5) { top: 180px; }
+            .cassette:nth-child(6) { top: 225px; }
+
+            .tv-container {
+                max-width: 380px;
+            }
+
+            .tv-screen {
+                padding: 25px;
+            }
+
+            .tv-content {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+      <nav class="navbar">
+        <!-- Hamburger -->
+        <input type="checkbox" id="menu-toggler">
+        <label for="menu-toggler" id="hamburger-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18V11H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </label>
+
+        <!-- Logo -->
+        <h2 class="logo"><a href="#">AVANT ATELIER</a></h2>
+
+        <!-- Menu -->
+        <ul class="all-links" id="sideMenu">
+          <li class="close-btn">
+            <label for="menu-toggler" class="close-icon"><i class="fas fa-times"></i></label>
+          </li>
+          <li><a href="#home">Home</a></li>
+          <li><a href="Tops.html">TOP</a></li>
+          <li><a href="Bottoms.html">BOTTOM</a></li>
+          <li><a href="Accessories.html">Accessories</a></li>
+          <li><a href="#portfolio">Inspiration</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Help</a></li>
+        </ul>
+
+        <!-- Right Icons -->
+       <div class="right-icons">
+          <a href="Signin.html"><i class="fas fa-user"></i></a>
+          <a href="#" id="searchBtn"><i class="fas fa-search"></i></a>
+          <a href="shopping_cart.html"><i class="fas fa-shopping-cart" aria-hidden="true"></i></a>
+        </div>
+        <div class="search-popup" id="searchPopup">
+          <div class="search-box">
+            <button class="close-search" id="closeSearch">&times;</button>
+            <h3>Search</h3>
+            <div class="search-input">
+              <input type="text" id="searchInput" placeholder="Search products">
+            </div>
+            <div id="searchResults" class="results-container"></div>
+          </div>
+        </div>
+
+      <!-- Gọi file JS -->
+      <script src="script.js"></script>
+
+
+        <!-- Overlay -->
+        <label for="menu-toggler" class="menu-overlay"></label>
+      </nav>
+    </header>
+
+    <div class="main-wrapper">
+        <table>
+            <tr>
+                <td class="left-section">
+                    <h1>FAQs</h1>
+                    <div class="cassette-container">
+                        <div class="cassette" onclick="selectCassette(0)">
+                            <img src="images/cassette_order.png">
+                        </div>
+                        <div class="cassette" onclick="selectCassette(1)">
+                            <img src="images/cassette_payment.png">
+                        </div>
+                        <div class="cassette" onclick="selectCassette(2)">
+                            <img src="images/cassette_ship.png">
+                        </div>
+                        <div class="cassette" onclick="selectCassette(3)">
+                            <img src="images/cassette_return.png">
+                        </div>
+                        <div class="cassette" onclick="selectCassette(4)">
+                            <img src="images/cassette_product.png">
+                        </div>
+                        <div class="cassette" onclick="selectCassette(5)">
+                            <img src="images/cassette_account.png">
+                        </div>
+                    </div>
+                </td>
+                <td class="right-section">
+                    <div class="tv-container">
+                        <img src="images/tivi.png">
+                        <div class="tv-screen">
+                            <div class="tv-content" id="tvContent">
+                                Our Avant Aterlier shop is availiable Monday thround Friday, 9:00 AM – 6:00 PM.
+                                Curious about something? Tap the cassettes on the left to see what others often ask.
+                                Feel free to contact us through the form contact us below or directly via our email at info@avantatelier.com (preferred and our fastest response) or voicemail at (+84) 123-456-789.
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- ======= CONTACT SECTION ======= -->
+    <section class="contact" id="contact">
+      <h2>Contact Us</h2>
+      <p>Reach out to us for any inquiries or collaborations.</p>
+      <div class="row">
+        <div class="col information">
+          <div class="contact-details">
+            <p><i class="fas fa-map-marker-alt"></i> 123 Atelier Avenue, District 1, Ho Chi Minh City</p>
+            <p><i class="fas fa-envelope"></i> info@avantatelier.com</p>
+            <p><i class="fas fa-phone"></i> (+84) 123-456-789</p>
+          </div>
+        </div>
+        <div class="col form">
+          <form>
+            <input type="text" placeholder="Name*" required>
+            <input type="email" placeholder="Email*" required>
+            <textarea placeholder="Message*" required></textarea>
+            <button id="submit" type="submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= FOOTER ======= -->
+    <footer>
+      <div>
+        <span>© 2025 Avant Atelier — All Rights Reserved</span>
+        <span class="link">
+          <a href="#">Home</a>
+          <a href="#contact">Contact</a>
+        </span>
+      </div>
+    </footer>
+
+    <script>
+var contents = [
+    `
+    <ol>
+        <li>
+            Do I need an account to order?<br>
+            No, but having an account makes it easier to receive more information about our new collections, flash sale, etc.
+        </li>
+        <li>
+            Can I order through social media?<br>
+            Yes, you can message us on Instagram or Facebook for assistance.
+        </li>
+    </ol>
+    `,
+    `
+    <ol>
+        <li>
+            What payment methods do you accept?<br>
+            We accept credit/debit cards, bank transfers, and e-wallets.
+        </li>
+        <li>
+            Are my payment details secure?<br>
+            Yes, all transactions are encrypted and secured by our payment gateway.
+        </li>
+    </ol>
+    `,
+    `
+    <ol>
+        <li>
+            Can I change my order after payment?<br>
+            You can contact us to request changes for your orders.
+        </li>
+        <li>
+            How do I know my order is confirmed?<br>
+            You'll receive a confirmation email or message right after checkout.
+        </li>
+        <li>
+            Can I cancel my order?<br>
+            Yes, within 2 hours before your order is shipped.
+        </li>
+    </ol>
+    `,
+    `
+    <ol>
+        <li>
+             What is your return policy?<br>
+             Items can be returned within 7 days if unworn and with original tags.    
+        </li>
+        <li>
+             How do I request a return or refund?<br>
+            Contact customer service and provide your order number and product photos.
+        </li>
+        <li>
+             When will I receive my refund?<br>
+             Within 3–7 business days after we receive your returned item.
+        </li>
+    </ol>
+    `,
+    `
+    <ol>
+        <li>
+            How do I choose my size?<br>
+            Refer to the size chart on each product page.
+            </li>
+        <li>
+            Are your items true to size?<br>
+            Most items fit true to standard measurements.
+            </li>
+        <li>
+            What materials do you use?<br>
+            We use high-quality fabrics like cotton, linen, and eco-friendly blends.
+            </li>
+    </ol>
+    `,
+    `
+    <ol>
+        <li>
+            How do I create an account?<br>
+            Click "Sign Up" and fill in your basic details.
+            </li>
+        <li>
+             I forgot my password — what do I do?<br>
+            Click "Forgot Password" to reset it via email.
+
+            </li>
+        <li>
+             Can I change my email or phone number?<br>
+            Yes, you can update personal info in your account settings.
+            </li>
+    </ol>
+    `
+];
+
+        var currentActive = -1;
+        
+        function selectCassette(index) {
+            var cassettes = document.querySelectorAll('.cassette');
+            var tvContent = document.getElementById('tvContent');
+            
+            if (currentActive === index) {
+                cassettes[index].classList.remove('active');
+                currentActive = -1;
+                tvContent.innerHTML = "Our Avant Aterlier shop is availiable Monday thround Friday, 9:00 AM – 6:00 PM. Curious about something? Tap the cassettes on the left to see what others often ask. Feel free to contact us through the form contact us below or directly via our email at info@avantatelier.com (preferred and our fastest response) or voicemail at (+84) 123-456-789.";
+                tvContent.style.animation = 'none';
+                setTimeout(function() {
+                    tvContent.style.animation = 'slideUpFade 0.6s ease';
+                }, 10);
+            } else {
+                for (var i = 0; i < cassettes.length; i++) {
+                    cassettes[i].classList.remove('active');
+                }
+                cassettes[index].classList.add('active');
+                currentActive = index;
+                
+                tvContent.style.animation = 'none';
+                tvContent.innerHTML = contents[index];
+                setTimeout(function() {
+                    tvContent.style.animation = 'slideUpFade 0.6s ease';
+                }, 10);
+            }
+        }
+
+        // Tooltip di chuyển theo chuột
+        var tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        tooltip.textContent = 'Click here to see more';
+        document.body.appendChild(tooltip);
+
+        document.querySelectorAll('.cassette').forEach(cassette => {
+        cassette.addEventListener('mousemove', e => {
+            tooltip.style.left = e.pageX + 10 + 'px';
+            tooltip.style.top = e.pageY + 15 + 'px';
+            tooltip.style.opacity = 1;
+        });
+        cassette.addEventListener('mouseleave', () => {
+            tooltip.style.opacity = 0;
+        });
+        });
+
+
+        // Sau khi trang load, cho cassette trồi lên
+        window.addEventListener("load", function() {
+            const cassettes = document.querySelectorAll('.cassette');
+            cassettes.forEach((cassette, i) => {
+                setTimeout(() => {
+                    cassette.classList.add('loaded');
+                }, i * 150);
+            });
+        });
+    </script>
+</body>
+</html>

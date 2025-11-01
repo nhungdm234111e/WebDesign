@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Shopping Cart</title>
+        <link rel="stylesheet" href="style.css">
+        <!-- Fontawesome Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+    body {
+        margin: 0;
+        padding: 60px 80px;
+    }
+
+    h1 {
+        width: auto;
+        margin-top: 30px;
+        padding: 0;  
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 35px;
+        font-weight: 600;
+        text-align: left;
+    }
+
+    .breadcrumb-container {
+        width: auto;
+        margin: 20px auto 0;
+        padding: 0;
+        text-align: left;
+    }
+
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    .breadcrumb-link {
+        color: #666;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+
+    .breadcrumb-link:hover {
+        color: #000;  
+    }
+
+    .breadcrumb-separator {
+        color: #999;
+        user-select: none;
+    }
+
+    .breadcrumb-current {
+        color: #333;
+        font-weight: 500;
+    }
+
+    /* Cart Table */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: center; 
+        padding: 18px 10px;
+        border-bottom: 1px solid #a1a1a1;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        vertical-align: middle;
+    }
+
+    th:nth-child(1) { width: 6%; }  /* SELECT */
+    th:nth-child(2) { width: 37%; text-align: left; padding-left: 40px; } /* PRODUCT */
+    th:nth-child(3) { width: 12%; } /* SIZE */
+    th:nth-child(4) { width: 18%; } /* QUANTITY */
+    th:nth-child(5) { width: 15% } /* TOTAL */
+    th:nth-child(6) { width: 12%;} /* DELETE */
+
+    tbody td {
+        padding: 20px 10px;
+        border-bottom: 1px solid #f8f6f6;
+        vertical-align: middle;
+    }
+
+    /* Checkbox Cell */
+    .checkbox-cell {
+        text-align: center;
+    }
+
+    .item-checkbox {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+    }
+
+    /* Product Cell*/
+    .product-cell {
+        width: 550px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 20px 10px; 
+        text-align: left;
+    }
+
+.product-image {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border: 1px solid #eee;
+        flex-shrink: 0;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .product-image:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .product-info-wrapper {
+        flex: 1;
+        display: flex; 
+        gap: 20px; 
+        align-items: center; 
+    }
+
+    .product-details {
+        flex: 1;
+        margin-right: 20px;
+    }
+
+    .product-name {
+        font-weight: 600; 
+        font-size: 14px; 
+        margin-bottom: 8px;
+        color: #000; 
+    }
+
+    .product-color {
+        color: #000000;
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .product-price {
+        color: #000;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    /* Delete Cell & Button */
+    .delete-cell {
+        text-align: center;
+    }
+
+    .delete-btn {
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        color: #999;
+        transition: color 0.3s;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        margin: 0 auto;
+    }
+
+    .delete-btn:hover {
+        color: #000;
+        background: none;
+    }
+
+    /* Size Cell */
+    .size-cell {
+        text-align: center;
+    }
+
+    .size-select {
+        width: 70px;
+        padding: 8px 10px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        text-align: center;
+        cursor: pointer;
+        background: white;
+    }
+
+    .size-select:focus {
+        outline: none;
+        border-color: #000;
+    }
+
+    /* Quantity Controls */
+    .quantity-cell { 
+        text-align: center;
+    }
+
+    .quantity-control {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        border: 1px solid #ddd;
+    }
+
+    .quantity-control button {
+        width: 32px;
+        height: 32px;
+        border: none;
+        background: white;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        line-height: 32px
+
+    }
+
+    .quantity-control button:hover {
+        background: #000000;
+        color: white;
+    }
+
+    .quantity-control input {
+        width: 45px;
+        border: none;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 500;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        height: 32px;
+    }
+
+    /* Total Cell */
+    .total-cell {
+        text-align: center;
+        font-weight: 500;
+        font-size: 15px;
+    }
+
+    /* Empty Cart Message */
+    .empty-cart {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+    }
+
+    .empty-cart i {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: #444;
+    }
+
+    /* Summary Section */
+    .deselect-mode {
+        background-color: white;
+        color: black;
+        border: 1px solid #ccc;
+    }
+
+    .deselect-mode:hover {
+        background-color: #ffffff;
+    }
+
+    .summary-section {
+        width: 380px;
+        margin-left: auto;
+        margin-top: 40px;
+        font-size: 15px;
+    }
+
+    .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+    }
+
+    .summary-row.total {
+        font-weight: 600;
+        border-top: 1px solid #a1a1a1;
+        margin-top: 10px;
+        padding-top: 15px;
+    }
+
+    /* Buttons */
+    .cart-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 25px;
+        width: auto;
+    }
+
+    .cart-actions button {
+        padding: 14px 32px;
+        font-size: 14px;
+        font-weight: 600;
+        border: 1px solid #000;
+        cursor: pointer;
+        transition: 0.3s;
+        letter-spacing: 0.5px;
+        min-width: 180px;
+        background: #000;
+        color: #fff;
+    }
+
+    .cart-actions button:hover {
+        background: #ffffff;
+        color: #000;
+    }
+
+    .selectAll {
+        background: #ffffff !important;
+        color: #000 !important;;
+        border: 1px solid #000;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .selectAll:hover {
+        background: #000000 !important;;
+        color: #ffffff !important;;
+    }
+
+    .continue-shopping a {
+        color: gray;             
+        text-decoration: underline;   
+        font-weight: 300;
+        transition: color 0.3s ease;
+    }
+
+    .continue-shopping a:hover {
+        color: #001c77;    
+    }
+
+   /* === NOTIFICATION === */
+            .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #000;
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 9999;
+            animation: slideIn 0.3s ease-out;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+            @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            }
+
+    /* Cart Badge */
+    .cart-badge {
+        position: absolute;
+        top: -7px;
+        right: -9px;
+        background: whitesmoke;
+        color: #000000;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+           /* Toast Container */
+            #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 9999;
+            }
+
+            /* Toast Box */
+            .toast {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            min-width: 260px;
+            max-width: 320px;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            }
+
+            /* Khi toast hiển thị */
+            .toast.show {
+            opacity: 1;
+            transform: translateX(0);
+            }
+
+            /* Khi toast ẩn */
+            .toast.hide {
+            opacity: 0;
+            transform: translateX(120%);
+            }
+
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .lightbox-container {
+        position: relative;
+        max-width: 90%;
+        max-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .lightbox-image {
+        max-width: 100%;
+        max-height: 85vh;
+        object-fit: contain;
+        border-radius: 4px;
+        animation: zoomIn 0.3s ease;
+    }
+
+    @keyframes zoomIn {
+        from { 
+            transform: scale(0.8);
+            opacity: 0;
+        }
+        to { 
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+.lightbox-close {
+        position: absolute;
+        top: -18px;
+        right: -18px;
+        background: #f3f3f3;
+        border: none;
+        color: #000;
+        font-size: 32px;
+        cursor: pointer;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s, transform 0.2s;
+        z-index: 10001;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .lightbox-close:hover {
+        background: rgba(255, 255, 255, 1);
+        transform: scale(1.1);
+    }
+
+    .lightbox-nav {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+        backdrop-filter: blur(10px);
+    }
+
+    .lightbox-nav:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .lightbox-nav.prev {
+        left: -70px;
+    }
+
+    .lightbox-nav.next {
+        right: -70px;
+    }
+
+    .lightbox-counter {
+        position: absolute;
+        bottom: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+        font-size: 14px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 8px 16px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 768px) {
+        body {
+            padding: 30px 20px;
+        }
+        
+        .summary-section {
+            width: 100%;
+        }
+        
+        .cart-actions {
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .breadcrumb-container {
+            padding: 10px 20px 10px;
+        }
+        
+        .breadcrumb {
+            font-size: 13px;
+        }
+        
+        .product-cell {
+            flex-direction: column;
+        }
+     
+        .product-cell .remove-icon:hover {
+            color: #000;
+            background-color: none;
+        }
+
+        .product-image {
+            width: 100%;
+            max-width: 200px;
+        }
+        
+.selectAll {
+            position: static;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .lightbox-nav.prev {
+            left: 10px;
+        }
+
+        .lightbox-nav.next {
+            right: 10px;
+        }
+
+        .lightbox-close {
+            top: 10px;
+            right: 10px;
+        }
+
+        .lightbox-counter {
+            bottom: 20px;
+        }
+    }
+</style>
+    </head>
+    <body>
+    <header>
+      <nav class="navbar">
+        <!-- Hamburger -->
+        <input type="checkbox" id="menu-toggler">
+        <label for="menu-toggler" id="hamburger-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="24px" height="24px">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18V11H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+        </label>
+
+        <!-- Logo -->
+        <h2 class="logo"><a href="#">AVANT ATELIER</a></h2>
+
+        <!-- Menu -->
+        <ul class="all-links" id="sideMenu">
+          <li class="close-btn">
+            <label for="menu-toggler" class="close-icon"><i class="fas fa-times"></i></label>
+          </li>
+          <li><a href="#home">Home</a></li>
+          <li><a href="Tops.html">TOP</a></li>
+          <li><a href="Bottoms.html">BOTTOM</a></li>
+          <li><a href="Accessories.html">Accessories</a></li>
+          <li><a href="#portfolio">Inspiration</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Help</a></li>
+        </ul>
+
+        <!-- Right Icons -->
+       <div class="right-icons">
+          <a href="Signin.html"><i class="fas fa-user"></i></a>
+          <a href="#" id="searchBtn"><i class="fas fa-search"></i></a>
+          <a href="shopping_cart.html">
+            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            <span class="cart-badge" id="cart-badge" style="display: none;"></span>
+        </a>
+        </div>
+        <div class="search-popup" id="searchPopup">
+          <div class="search-box">
+            <button class="close-search" id="closeSearch">&times;</button>
+            <h3>Search</h3>
+            <div class="search-input">
+              <input type="text" id="searchInput" placeholder="Search products">
+            </div>
+            <div id="searchResults" class="results-container"></div>
+          </div>
+        </div>
+
+      <!-- Gọi file JS -->
+      <script src="script.js"></script>
+
+
+        <!-- Overlay -->
+        <label for="menu-toggler" class="menu-overlay"></label>
+      </nav>
+    </header>
+
+        <!-- Cart Sections -->
+        <div class="breadcrumb-container">
+            <nav class="breadcrumb">
+                <a href="index.html" class="breadcrumb-link">Home</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">My Cart</span>
+            </nav>
+        </div>    
+
+        <h1>Shopping Cart</h1>
+
+        <!-- Cart Table -->
+        <table id="cart-table">
+            <thead>
+            <tr>
+                <th>Select</th>
+                <th>Product</th>
+                <th>Size</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody id="cart-tbody">
+            </tbody>
+        </table>
+
+        <!-- Summary -->
+        <div class="summary-section">
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span id="subtotal"></span>
+            </div>
+            <div class="summary-row">
+                <span>Quantity:</span>
+                <span id="total-quantity"></span>
+            </div>
+            <div class="summary-row">
+                <span>Shipping:</span>
+                <span id="shipping"></span>
+            </div>
+            <div class="summary-row total">
+                <span>Total:</span>
+                <span id="total"></span>
+            </div>
+        </div>
+
+        <!-- Cart Buttons -->
+        <div class="cart-actions">
+            <button class="selectAll" onclick="selectAllItems()">SELECT ALL</button>
+            <button class="checkout" onclick="handleCheckout()">CHECK OUT</button> 
+        </div>
+
+        <script src="test_cart.js"></script>
+    </body>
+</html>
